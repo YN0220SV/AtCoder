@@ -2,34 +2,31 @@
 using namespace std;
 int main()
 {
-    int n = 0;
-    cin >> n;
-    vector<long int> a(n);
-    long int x = 0;
-    int ans = 0;
-    cin >> a[0];
-    int flg = 0;
+    string S;
+    cin >> S;
+    int N = S.size();
 
-    for (int i = 0; i < n - 1; i++)
+    vector<int> A(N + 1, 0);
+
+    for (int i = 0; i < N; i++)
     {
-        flg = 1;
-        cin >> x;
-        for (int j = 0; j < a.size(); j++)
+        if (S[i] == '<')
         {
-            if ((a[j] == x))
-            {
-                flg = 0;
-            }
+            A[i + 1] = A[i] + 1;
         }
-        if(flg!=0)
-        {
-            a.push_back(x);
-        }
-        ans += flg;
-        
     }
-    ans++;
-
+    for (int i = N - 1; i >= 0; i--)
+    {
+        if (S[i] == '>')
+        {
+            A[i] = max(A[i], A[i + 1] + 1);
+        }
+    }
+    long ans = 0;
+    for (int i = 0; i < N + 1; i++)
+    {
+        ans += A[i];
+        // cout << A[i] << endl;
+    }
     cout << ans << endl;
-    return 0;
 }
